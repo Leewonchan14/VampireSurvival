@@ -10,11 +10,12 @@ public class player : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer sprite;
     Animator anim;
+    public scanner scan;
     void Awake() {
         rigid = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-
+        scan = GetComponent<scanner>();
     }
     // Start is called before the first frame update
     void Start()
