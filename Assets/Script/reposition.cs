@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class reposition : MonoBehaviour
 {
+  Collider2D coll;
+  void Awake() {
+    coll = GetComponent<Collider2D>();
+  }
   void OnTriggerExit2D(Collider2D other)
   {
     if (!other.CompareTag("Area")) return;
-    Debug.Log("exit!");
 
     Vector3 playerPos = GameManager.instance.player.transform.position;
     Vector3 myPos = transform.position;
@@ -23,11 +26,12 @@ public class reposition : MonoBehaviour
     switch (transform.tag)
     {
       case "Ground":
-        Debug.Log("이동함");
         transform.position = myPos + reposition_Dir * 40;
         break;
       case "Enemy":
-
+        if(coll.enabled){
+          transform.position = myPos + reposition_Dir * 25 + new Vector3(Random.Range(-3f,3f),Random.Range(-3f,3f));
+        }
         break;
     }
   }
