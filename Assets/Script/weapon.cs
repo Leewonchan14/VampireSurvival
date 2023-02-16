@@ -73,15 +73,24 @@ public class weapon : MonoBehaviour
             spawned_transform.position = GameManager.instance.player.transform.position;
             spawned_transform.Rotate(0,0,rotate_interval*index);
             spawned_transform.position += spawned_transform.up * 1.5f;
-            spawned_transform.GetComponent<Bullet>().Init(damage,-1); // -1 is infinity Per;
+            spawned_transform.GetComponent<Bullet>().Init(damage,-1,Vector2.zero); // -1 is infinity Per;
         }
     }
     
     //원거리 무기
     public void fire(){
         if(player.scan.nearestTarget == null) return;
+        Vector3 targetPos = player.scan.nearestTarget.position;
+        Vector3 dir = targetPos - transform.position;
+
+        dir = dir.normalized;
+        
         Transform bullet = GameManager.instance.poolManager.Get(prefab_id).transform;
-        bullet.position = GameManager.instance.player.transform.position;
+        bullet.position = transform.position;
+
+        bullet.rotation = Quaternion.FromToRotation(Vector3.up,dir);
+
+        bullet.GetComponent<Bullet>().Init(damage,count,dir*15);
     }
 
     public void LevelUp(float damage,int count){
