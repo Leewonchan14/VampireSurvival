@@ -4627,6 +4627,55 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &538901768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 538901769}
+  - component: {fileID: 538901770}
+  m_Layer: 0
+  m_Name: weapon0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &538901769
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538901768}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1489567139}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &538901770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538901768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 093d07b7b94c1cf40a4267a491acabea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 1
+  prefab_id: 2
+  damage: 3
+  count: 0
+  speed: 0
 --- !u!1 &557975158
 GameObject:
   m_ObjectHideFlags: 0
@@ -4800,6 +4849,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1489567135}
   poolManager: {fileID: 311793863}
+  level: 0
+  kill: 0
+  exp: 0
+  nextExp: 03000000050000000a0000006400000096000000d20000001801000068010000c201000026020000
+  gameTime: 0
+  max_Game_Time: 20
 --- !u!4 &670627186
 Transform:
   m_ObjectHideFlags: 0
@@ -4859,18 +4914,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2939d13db98b43244b8f813fcfa74195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTime: 0
-  max_Game_Time: 10
-  level: 0
   spawnDatas:
   - spriteType: 0
-    spawn_interval: 0.7
-    health: 10
-    speed: 1.5
+    spawn_interval: 0.1
+    health: 5
+    speed: 3
   - spriteType: 1
-    spawn_interval: 0.2
+    spawn_interval: 0.1
+    health: 10
+    speed: 3
+  - spriteType: 2
+    spawn_interval: 0.1
     health: 15
-    speed: 2.4
+    speed: 3
   spawn_Size: 15
   spawn_interval: 0.5
 --- !u!1 &911839333
@@ -17818,7 +17874,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 1378562880, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -17846,6 +17902,7 @@ Transform:
   - {fileID: 640905102}
   - {fileID: 901642216}
   - {fileID: 1975796481}
+  - {fileID: 538901769}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18008,8 +18065,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 093d07b7b94c1cf40a4267a491acabea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1
-  prefab_id: 2
+  id: 0
+  prefab_id: 1
   damage: 3
-  count: 0
+  count: 3
   speed: 0
