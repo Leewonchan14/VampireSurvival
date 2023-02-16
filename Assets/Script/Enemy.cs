@@ -11,12 +11,14 @@ public class Enemy : MonoBehaviour
     public RuntimeAnimatorController[] animCon;
     public Rigidbody2D target;
     public Rigidbody2D rigid;
+    public Collider2D coll;
     public SpriteRenderer sprite;
     public Animator anim;
     void Awake() {
         rigid = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        coll = GetComponent<Collider2D>();
     }
     void FixedUpdate() {
         //살아있고, 상태가 맞지 않았을때 따라가라
@@ -44,6 +46,10 @@ public class Enemy : MonoBehaviour
     void OnEnable() {
         target = GameManager.instance.player.GetComponent<Rigidbody2D>();
         isLive = true;
+        coll.enabled = true;
+        rigid.simulated = true;
+        anim.SetBool("Dead",false);
+        sprite.sortingOrder = 2;
         health = maxHealth;
     }
     public void Init(spawnData data){
@@ -57,16 +63,19 @@ public class Enemy : MonoBehaviour
         //불렛 태그랑 닿으면
         if(other.CompareTag("Bullet")){
             health -= other.GetComponent<Bullet>().damage;
-            //넉백 구현
-            StartCoroutine(KnocBack());
 
             //살았다면
             if(health>0){
-                //히트 애니메이션
+            //히트 애니메이션,넉백 구현
                 anim.SetTrigger("Hit");
+                StartCoroutine(KnocBack());
             }//죽었다면
             else{
-                Dead();
+                isLive = false;
+                coll.enabled = false;
+                rigid.simulated = false;
+                anim.SetBool("Dead",true);
+                sprite.sortingOrder--;
             }
         }
     }
