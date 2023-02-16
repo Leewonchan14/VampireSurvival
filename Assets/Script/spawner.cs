@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class spawner : MonoBehaviour
 {
-    public float gameTime = 0;
-    public float max_Game_Time = 20;
-    public int level = 0;
-
     public spawnData[] spawnDatas;
     public float spawn_Size = 15;
     public float spawn_interval;
@@ -25,8 +21,7 @@ public class spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameTime += Time.deltaTime;
-        level = Mathf.Min(Mathf.FloorToInt(gameTime/max_Game_Time),spawnDatas.Length-1);
+        
     }
     Vector3 Next_Spawn_Dir(){
         return new Vector3(Random.Range(-1f,1f),Random.Range(-1f,1f)).normalized*spawn_Size;
@@ -34,6 +29,8 @@ public class spawner : MonoBehaviour
     IEnumerator EnemySpawn(){
         while(true){
             GameObject spawned_object = GameManager.instance.poolManager.Get(0);
+
+            int level = GameManager.instance.level;
 
             spawned_object.GetComponent<Enemy>().Init(spawnDatas[level]);
 
