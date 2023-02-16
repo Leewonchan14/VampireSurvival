@@ -19,7 +19,8 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
     }
     void FixedUpdate() {
-        if(isLive) follow_Target();
+        //살아있고, 상태가 맞지 않았을때 따라가라
+        if(isLive&&!anim.GetCurrentAnimatorStateInfo(0).IsName("Hit")) follow_Target();
     }
 
     // Start is called before the first frame update
@@ -56,9 +57,13 @@ public class Enemy : MonoBehaviour
         //불렛 태그랑 닿으면
         if(other.CompareTag("Bullet")){
             health -= other.GetComponent<Bullet>().damage;
+            //넉백 구현
+            StartCoroutine(KnocBack());
+
             //살았다면
             if(health>0){
-                return;
+                //히트 애니메이션
+                anim.SetTrigger("Hit");
             }//죽었다면
             else{
                 Dead();
@@ -67,5 +72,11 @@ public class Enemy : MonoBehaviour
     }
     void Dead(){
         gameObject.SetActive(false);
+    }
+    IEnumerator KnocBack(){
+        yield return new WaitForFixedUpdate();
+        Vector3 playerPos = GameManager.instance.player.transform.position;
+        Vector3 knocDir = transform.position - playerPos;
+        rigid.AddForce(knocDir.normalized*5,ForceMode2D.Impulse);
     }
 }
