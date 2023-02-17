@@ -30,13 +30,13 @@ public class spawner : MonoBehaviour
         while(true){
             GameObject spawned_object = GameManager.instance.poolManager.Get(0);
 
-            int level = GameManager.instance.level;
+            int Enemy_level = GameManager.instance.Enemy_level;
 
-            spawned_object.GetComponent<Enemy>().Init(spawnDatas[level]);
+            spawned_object.GetComponent<Enemy>().Init(spawnDatas[Enemy_level]);
 
             spawned_object.transform.position = GameManager.instance.player.transform.position +  Next_Spawn_Dir();
 
-            yield return new WaitForSeconds(spawnDatas[level].spawn_interval);
+            yield return new WaitForSeconds(spawnDatas[Enemy_level].spawn_interval);
         }
     }
     

@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour
                 coll.enabled = false;
                 rigid.simulated = false;
                 anim.SetBool("Dead",true);
-                sprite.sortingOrder--;
+                sprite.sortingOrder = 1;
                 GameManager.instance.kill++;
                 GameManager.instance.GetExp();
             }
